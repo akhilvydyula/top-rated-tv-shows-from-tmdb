@@ -1,93 +1,93 @@
-# Top Rated TV Shows from TMDB
+# TMDB top-rated TV shows — rating model API
 
+MVP stack: **scikit-learn** regression (predicts TMDB `vote_average` on a 0–10 scale), **FastAPI** inference service, **Docker**, and **CI/CD** (GitLab CI + GitHub Actions).
 
+Dataset reference: [Top rated TV shows from TMDB (Kaggle)](https://www.kaggle.com/datasets/rosemeenshaikh/op-rated-tv-shows-from-tmdb).
 
-## Getting started
+## Model
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+- **Target:** `vote_average`
+- **Features:** `popularity`, `log1p(vote_count)`, `adult`, air year from `first_air_date`, character lengths of `name` / `overview`
+- **Algorithm:** `HistGradientBoostingRegressor` inside a `Pipeline` with scaling and imputation (see `ml/train.py`)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+After training, metrics are written to `models/metrics.json` alongside `models/tmdb_rating_pipeline.joblib`. With MLflow enabled (default), runs, params, metrics, and a `sklearn-model` artifact are logged under `mlruns/` (or your `MLFLOW_TRACKING_URI`).
 
-## Add your files
+## Packaging (wheel)
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+`pyproject.toml` defines the installable package **`tmdb-tv-rating-mvp`** (`app` + `ml`).
 
+```bash
+pip install -e ".[dev]"    # editable dev install
+python -m build --wheel    # produces dist/*.whl
+pip install dist/tmdb_tv_rating_mvp-*.whl
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/skills-marathon/top-rated-tv-shows-from-tmdb.git
-git branch -M main
-git push -uf origin main
+
+Console script: `tmdb-train` (same as `python -m ml.train`).
+
+## Makefile (one-shot commands)
+
+Copy `Makefile.local.example` to `Makefile.local` to set e.g. `PY`, `DATA`, `MLFLOW_TRACKING_URI`, `HOST`, `PORT`, `UVICORN_RELOAD=--reload`.
+
+```bash
+make install-dev   # pip install -e ".[dev]"
+make train         # train + MLflow (see MLFLOW_* env vars)
+make mlflow-ui     # browse runs (default file store: ./mlruns)
+make serve         # API (set UVICORN_RELOAD=--reload for hot reload)
+make test / lint / format / wheel / all-check
 ```
 
-## Integrate with your tools
+On Windows, use **Git Bash** or **WSL** so GNU Make is available.
 
-* [Set up project integrations](https://gitlab.com/skills-marathon/top-rated-tv-shows-from-tmdb/-/settings/integrations)
+## MLflow
 
-## Collaborate with your team
+- **Local file store (default):** `MLFLOW_TRACKING_URI` defaults to `file:<cwd>/mlruns` if unset.
+- **Remote server:** set `MLFLOW_TRACKING_URI=http://your-host:5000` and optional `MLFLOW_MODEL_NAME` to register the sklearn model (not used with `file:` URIs).
+- **Disable:** `MLFLOW_DISABLE=1` or `python -m ml.train --no-mlflow`.
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+## Quick start
 
-## Test and Deploy
+```bash
+python -m venv .venv
+.venv\Scripts\activate   # Windows
+# source .venv/bin/activate  # Linux/macOS
 
-Use the built-in continuous integration in GitLab.
+pip install -e ".[dev]"
+# or: pip install -r requirements.txt -r requirements-dev.txt
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+python -m ml.train --data data/sample_tv_shows.csv --out models
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
 
-***
+- Health: `GET http://localhost:8000/health`
+- Predict: `POST http://localhost:8000/predict` with JSON body matching `ShowInput` in `app/schemas.py`
 
-# Editing this README
+Use your Kaggle CSV path instead of `data/sample_tv_shows.csv` once downloaded (same columns as in the dataset description).
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## Docker
 
-## Suggestions for a good README
+```bash
+docker compose up --build
+```
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+The image trains on `data/sample_tv_shows.csv` at build time. For production, copy your full Kaggle export into the build context and adjust the `RUN python -m ml.train ...` line in the `Dockerfile`.
 
-## Name
-Choose a self-explaining name for your project.
+## CI/CD
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+- **GitLab:** `.gitlab-ci.yml` — `lint`, `test` (pytest with MLflow off), **`wheel`** (uploads `dist/*.whl`), **`mlflow_train`** (trains with MLflow file store, uploads `mlruns/` + `models/*` so you can compare runs across pushes). **Deploy** remains a manual Docker job on `main` when registry variables and a Docker runner are configured.
+- **GitHub:** `.github/workflows/ci.yml` — lint + test, then **`wheel`** and **`mlflow-train`** jobs that upload the wheel and MLflow/model artifacts.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## Project layout
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+| Path | Purpose |
+|------|---------|
+| `pyproject.toml` | Package metadata, deps, wheel build |
+| `Makefile` | Shortcut commands for train / serve / MLflow UI / wheel |
+| `ml/train.py` | Train and save pipeline + metrics |
+| `ml/features.py` | Shared feature engineering |
+| `app/main.py` | FastAPI app |
+| `data/sample_tv_shows.csv` | Small demo dataset for tests and Docker |
+| `tests/` | Pytest suite |
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Use follows the Kaggle dataset license; model and code are provided as-is for learning and prototyping.

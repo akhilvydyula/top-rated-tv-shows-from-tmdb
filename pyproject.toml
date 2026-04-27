@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tmdb-tv-rating-mvp"
+version = "0.1.0"
+description = "TMDB TV vote_average regression model, FastAPI service, and MLflow tracking"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.109.0,<1",
+    "uvicorn[standard]>=0.27.0,<1",
+    "pydantic>=2.5.0,<3",
+    "pandas>=2.1.0,<3",
+    "numpy>=1.26.0,<3",
+    "scikit-learn>=1.4.0,<2",
+    "joblib>=1.3.0,<2",
+    "python-dateutil>=2.8.0,<3",
+    "mlflow>=2.10.0,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0,<9",
+    "httpx>=0.26.0,<1",
+    "ruff>=0.1.0,<1",
+    "build>=1.0.0,<2",
+]
+
+[project.scripts]
+tmdb-train = "ml.train:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app", "ml"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

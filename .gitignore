@@ -1,0 +1,22 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+.env
+Makefile.local
+.idea/
+.vscode/
+*.log
+.DS_Store
+mlruns/
+dist/
+build/
+
+# Optional: keep trained model out of git or track for convenience — we commit metrics only
+# models/*.joblib

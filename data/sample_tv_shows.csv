@@ -1,0 +1,96 @@
+first_air_date,name,overview,popularity,vote_average,vote_count,adult
+2008-01-20,Breaking Bad,A high school chemistry teacher turned methamphetamine manufacturer.,82.4,8.9,12000,False
+2011-04-17,Game of Thrones,Nine noble families fight for control over the lands of Westeros.,85.1,8.4,15000,False
+2016-07-15,Stranger Things,"When a young boy vanishes, a small town uncovers a mystery.",78.2,8.7,9000,False
+2005-03-24,The Office,A mockumentary on a group of typical office workers.,65.3,8.5,7000,False
+2009-09-24,Modern Family,Three different but related families face trials in their own ways.,55.8,8.1,5000,False
+2013-09-22,Brooklyn Nine-Nine,Comedy series following detectives in the NYPD's 99th Precinct.,62.0,8.4,6000,False
+2015-08-28,Narcos,A chronicled look at the criminal exploits of Colombian drug lord Pablo Escobar.,58.4,8.3,4500,False
+2017-11-12,The Crown,Follows the political rivalries and romance of Queen Elizabeth II's reign.,52.1,8.2,4000,False
+2019-11-12,The Mandalorian,The travels of a lone bounty hunter in the outer reaches of the galaxy.,88.0,8.7,11000,False
+2021-12-29,Arcane,Set in utopian Piltover and the oppressed underground of Zaun.,72.5,9.0,5500,False
+2006-09-17,Planet Earth,Documentary series exploring Earth's natural wonders.,45.2,9.4,3000,False
+2014-06-15,Orange Is the New Black,"Convicted of a decade-old crime, Piper Chapman is sent to prison.",48.9,7.7,4200,False
+2016-07-15,BoJack Horseman,The star of a 1990s sitcom navigates life in Hollywood.,42.3,8.7,3800,False
+2019-06-16,Euphoria,A look at life for a group of high school students.,76.1,8.3,6200,False
+2011-01-10,Sherlock,Modern update of Conan Doyle's detective stories.,61.5,8.9,4800,False
+2004-11-06,House,An antisocial maverick doctor specializes in diagnostic medicine.,59.0,8.6,5200,False
+1994-09-22,Friends,Follows the personal and professional lives of six friends.,70.1,8.8,14000,False
+2019-04-26,Chernobyl,"In April 1986, an explosion at the Chernobyl nuclear plant.",68.4,9.3,4100,False
+2002-01-27,The Wire,Baltimore drug scene seen through the eyes of dealers and law enforcement.,44.8,9.3,2800,False
+2010-09-19,Downton Abbey,A chronicle of the lives of the British aristocratic Crawley family.,38.6,8.7,2600,False
+2015-02-08,Better Call Saul,The trials and tribulations of criminal lawyer Jimmy McGill.,64.2,8.7,5100,False
+2017-02-19,Big Little Lies,The apparently perfect lives of three mothers unravel.,41.0,8.1,2900,False
+2013-09-30,Peaky Blinders,A gangster family epic set in 1900s England.,67.8,8.8,7200,False
+2007-09-24,The Big Bang Theory,A woman moves into an apartment across from two physicists.,62.5,8.1,11000,False
+2014-10-12,The Flash,"After being struck by lightning, Barry Allen wakes from a coma with super speed.",55.0,7.5,6500,False
+2016-10-02,Westworld,A dark odyssey about the dawn of artificial consciousness.,54.3,8.5,4400,False
+2018-05-02,The Handmaid's Tale,"Set in a dystopian future, a woman is forced to live as a concubine.",49.7,8.3,3600,False
+2000-10-06,Gilmore Girls,A dramedy centering on the relationship between a single mother and her daughter.,35.4,8.2,2200,False
+2019-11-08,The Witcher,"Geralt of Rivia, a mutated monster-hunter for hire.",81.2,8.0,8900,False
+2022-09-02,The Rings of Power,Epic drama set thousands of years before The Hobbit.,71.0,7.0,7800,False
+2010-04-11,Treme,Life in New Orleans after Hurricane Katrina.,12.4,7.8,800,False
+2012-07-23,The Newsroom,A behind-the-scenes look at a cable news program.,28.9,8.4,2100,False
+2015-06-21,True Detective,Seasonal anthology series with new casts and settings each season.,45.6,8.1,3300,False
+2018-08-17,Disenchantment,"Princess Bean, elf Elfo and demon Luci stumble through misadventures.",31.2,7.2,1900,False
+2019-11-17,Watchmen,Set in an alternate history where masked vigilantes are treated as outlaws.,42.8,8.1,2500,False
+2020-10-23,The Queen's Gambit,Orphan chess prodigy struggles with addiction in a quest to be champion.,65.9,8.6,4700,False
+2001-10-16,24,Jack Bauer races against the clock to thwart multiple terrorist plots.,33.5,8.3,2700,False
+2005-10-03,Prison Break,Structural engineer Michael Scofield tries to help his brother escape prison.,58.7,8.1,5400,False
+2014-06-01,Last Week Tonight with John Oliver,Weekly satirical news program.,22.1,8.0,1600,False
+2016-01-25,Billions,US Attorney Chuck Rhoades goes after hedge fund king Bobby Axelrod.,29.4,8.3,1800,False
+2017-09-29,Star Trek: Discovery,New crews aboard new starships explore the galaxy.,48.2,7.1,3400,False
+2018-05-11,Pose,Ballroom culture in 1980s New York.,18.6,8.6,900,False
+2019-03-15,Love Death + Robots,Animated anthology of short stories.,35.7,8.0,2400,False
+2020-04-03,Money Heist,A criminal mastermind plans the biggest heist in history.,82.9,8.2,10000,False
+2021-06-09,Loki,The mercurial villain Loki resumes his role as God of Mischief.,75.3,8.2,7000,False
+2009-02-08,The Pacific,US Marines fighting Imperial Japan during World War II.,25.3,8.3,1500,False
+2011-06-23,Suits,College dropout works with one of New York's best lawyers.,59.1,8.4,5600,False
+2013-01-21,House of Cards,A Congressman works with his equally conniving wife to exact revenge.,42.0,8.0,3100,False
+2015-08-23,Fear the Walking Dead,Spin-off of The Walking Dead set in Los Angeles.,48.1,6.8,3200,False
+2017-02-03,Legion,David Haller struggles with schizophrenia and mutant powers.,28.8,8.2,1700,False
+2018-09-14,The Dragon Prince,Two human princes forge an unlikely bond with the elf assassin.,24.5,8.3,1400,False
+2019-09-20,Undone,Alma discovers she has a new relationship to time after a near-fatal accident.,15.2,8.1,700,False
+2020-09-18,Ratched,Origin story of asylum nurse Mildred Ratched.,32.6,7.1,2100,False
+2021-12-17,The Witcher: Nightmare of the Wolf,Vesemir escapes poverty to become a witcher.,28.0,7.3,1600,False
+2003-09-22,Two and a Half Men,Comedy about a hedonistic jingle writer.,45.0,7.1,4800,False
+2006-09-20,Heroes,Ordinary people discover they have super powers.,40.2,7.5,3900,False
+2008-09-22,Fringe,FBI team investigates unexplained phenomena.,35.8,8.3,2900,False
+2010-09-19,Boardwalk Empire,Atlantic City political boss Enoch Thompson.,28.4,8.2,2100,False
+2012-09-30,Homeland,CIA officer believes a Marine is a threat.,42.5,7.6,3500,False
+2014-06-01,Power,A drug dealer tries to leave the criminal world.,33.1,7.6,2600,False
+2016-01-25,Shadowhunters,Clary Fray discovers she is a Shadowhunter.,25.9,6.9,2200,False
+2018-06-29,GLOW,Women's professional wrestling promotion in the 1980s.,19.8,7.8,1100,False
+2020-03-20,Ozark,A financial adviser drags his family into money laundering.,62.4,8.3,5200,False
+2021-09-17,Squid Game,Hundreds of cash-strapped players accept a strange invitation.,95.2,8.2,12000,False
+2007-09-24,Chuck,Computer geek downloads government secrets into his brain.,32.1,7.8,2400,False
+2009-09-09,Glee,High school glee club competes while coping with relationships.,38.4,6.8,3600,False
+2011-06-23,Teen Wolf,A high school student is bitten by a werewolf.,35.0,7.7,2800,False
+2013-03-18,The Americans,Two KGB spies pose as Americans in suburban Washington D.C.,31.5,8.3,1900,False
+2015-06-02,Sense8,A group of strangers are mentally linked.,34.2,8.2,2300,False
+2017-02-03,24: Legacy,A military hero returns home and CTU seeks his help.,18.4,6.2,800,False
+2019-04-21,Game of Thrones Spinoff Pilot,Unreleased pilot for a prequel series.,9.1,5.5,200,False
+2020-11-12,The Crown Season 4,Continues the reign of Queen Elizabeth II.,41.2,8.0,2600,False
+2004-10-27,Lost,Survivors of a plane crash are forced to work together.,55.8,7.8,6100,False
+2010-06-16,Pretty Little Liars,Four friends band together against an anonymous foe.,44.3,6.9,3400,False
+2012-10-10,Arrow,Billionaire playboy becomes vigilante after being shipwrecked.,48.6,6.8,4200,False
+2014-10-07,The Flash Season 2,Barry Allen faces new speedsters.,42.1,7.2,3100,False
+2016-10-02,Westworld Season 2,Hosts rebel against guests.,46.8,8.2,2800,False
+2018-07-29,Castle Rock,Anthology series set in Stephen King multiverse.,22.5,7.3,1200,False
+2020-01-26,The Outsider,Investigation of a gruesome murder leads to supernatural forces.,28.9,7.6,1800,False
+2021-06-09,Loki Season 1,Time Variance Authority captures Loki.,70.1,8.2,6500,False
+2005-09-13,Supernatural,Two brothers follow their father's footsteps hunting evil.,62.3,8.4,9000,False
+2008-01-20,Breaking Bad Season 5,Walter White's empire expands.,78.0,9.0,8000,False
+2011-04-17,Game of Thrones Season 8,Final season of the fantasy drama.,45.2,6.3,20000,False
+2016-07-15,Stranger Things Season 3,Kids face the Mind Flayer again.,74.5,8.6,7000,False
+1990-09-10,The Simpsons,Satirical adventures of a working-class family.,52.0,8.0,12000,False
+1999-01-31,Family Guy,Sick and twisted political incorrect cartoon.,48.0,7.2,8000,False
+2005-03-26,American Dad,Satirical CIA agent and his family.,35.0,6.9,4000,False
+2013-12-02,Rick and Morty,An eccentric scientist and his grandson have interdimensional adventures.,68.0,9.1,9000,False
+2011-04-26,Black Mirror,Anthology exploring techno-paranoia.,52.0,8.3,5000,False
+2009-02-08,Delocated,Witness protection reality show parody.,5.2,7.0,300,False
+2014-04-06,Silicon Valley,Follows struggling startup Pied Piper.,38.0,8.4,3200,False
+2015-08-23,Fargo,Crime anthology inspired by the film.,41.0,8.7,2800,False
+2017-02-19,Feud,Anthology series about famous feuds.,12.0,7.8,600,False
+2019-06-16,Euphoria Season 2,Rue's struggles continue.,68.0,8.2,5000,False
+2022-01-28,Peacemaker,Violent vigilante joins black ops squad.,55.0,8.3,4500,False
