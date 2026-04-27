@@ -6,6 +6,7 @@ stages:
 
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  PIP_ROOT_USER_ACTION: ignore
 
 cache:
   key: "$CI_COMMIT_REF_SLUG"

@@ -86,9 +86,7 @@ def train(
     df, y = df.loc[mask].reset_index(drop=True), y.loc[mask]
 
     X = build_feature_frame(df)
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=test_size, random_state=42
-    )
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=42)
 
     pipe = build_pipeline()
     do_mlflow = _use_mlflow_flag(use_mlflow)

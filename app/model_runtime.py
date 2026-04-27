@@ -13,9 +13,7 @@ from ml.features import build_feature_frame
 
 @lru_cache(maxsize=1)
 def load_pipeline() -> Pipeline:
-    path = Path(
-        os.environ.get("MODEL_PATH", "models/tmdb_rating_pipeline.joblib")
-    ).resolve()
+    path = Path(os.environ.get("MODEL_PATH", "models/tmdb_rating_pipeline.joblib")).resolve()
     if not path.is_file():
         raise FileNotFoundError(
             f"Model not found at {path}. Run: python -m ml.train --data path/to/tv_shows.csv"

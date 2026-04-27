@@ -21,17 +21,9 @@ def build_feature_frame(df: pd.DataFrame) -> pd.DataFrame:
             "log_vote_count": np.log1p(
                 pd.to_numeric(df["vote_count"], errors="coerce").fillna(0.0)
             ),
-            "adult": df["adult"]
-            .astype(str)
-            .str.lower()
-            .isin(("true", "1", "yes"))
-            .astype(int),
+            "adult": df["adult"].astype(str).str.lower().isin(("true", "1", "yes")).astype(int),
             "air_year": _parse_year(df["first_air_date"]),
-            "overview_len": df["overview"]
-            .fillna("")
-            .astype(str)
-            .str.len()
-            .clip(0, 5000),
+            "overview_len": df["overview"].fillna("").astype(str).str.len().clip(0, 5000),
             "name_len": df["name"].fillna("").astype(str).str.len().clip(0, 500),
         }
     )
