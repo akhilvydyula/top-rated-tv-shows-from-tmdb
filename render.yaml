@@ -1,0 +1,17 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+# Connect repo → New Blueprint → select this file, or create a Web Service manually
+# with buildCommand: make install  and  startCommand: make start
+
+services:
+  - type: web
+    name: tmdb-tv-shows
+    runtime: python
+    plan: free
+    buildCommand: make install
+    startCommand: make start
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.11"
+      - key: MODEL_PATH
+        value: models/tmdb_rating_pipeline.joblib

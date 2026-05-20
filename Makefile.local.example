@@ -1,0 +1,7 @@
+# Copy to Makefile.local (gitignored) to override defaults.
+#
+# PY        = python3
+# DATA      = data/tv_shows.csv
+# MODEL_DIR = models
+# PORT      = 8501
+# HOST      = 0.0.0.0
