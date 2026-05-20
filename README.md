@@ -28,13 +28,38 @@ make serve
 
 ## Deploy on Render
 
-1. Push this repo to GitHub/GitLab.
-2. [Render Dashboard](https://dashboard.render.com/) → **New** → **Blueprint** (uses `render.yaml`)  
-   **or** **Web Service** → connect repo and set:
-   - **Build command:** `make install`
-   - **Start command:** `make start`
-   - **Python version:** `3.11.11` (or match `runtime.txt`)
-3. Deploy. Render sets `PORT`; `make start` binds Streamlit to it.
+**Do not use Gunicorn** — this app is Streamlit, not Django/Flask.
+
+### Manual Web Service (copy into the Render form)
+
+| Field | Value |
+|-------|--------|
+| **Language** | Python 3 |
+| **Branch** | `main` |
+| **Build Command** | `pip install -r requirements.txt` |
+| **Start Command** | `bash scripts/render-start.sh` |
+
+Or with Make (if available on the builder):
+
+| Field | Value |
+|-------|--------|
+| **Build Command** | `make install` |
+| **Start Command** | `make start` |
+
+**Environment variables** (Add Environment Variable):
+
+| Name | Value |
+|------|--------|
+| `PYTHON_VERSION` | `3.11.11` |
+| `MODEL_PATH` | `models/tmdb_rating_pipeline.joblib` |
+
+Leave **Root Directory** blank unless this repo lives in a monorepo subfolder.
+
+1. Push this repo to GitHub (include `models/tmdb_rating_pipeline.joblib`).
+2. [Render Dashboard](https://dashboard.render.com/) → **New** → **Web Service** → connect repo → paste the table above.
+3. **Deploy web service**. Render sets `PORT` automatically; the start script binds Streamlit to it.
+
+**Blueprint:** **New** → **Blueprint** and select `render.yaml` for the same settings.
 
 The trained pipeline in `models/` is used at runtime (`MODEL_PATH` in `render.yaml`). To retrain before deploy locally:
 

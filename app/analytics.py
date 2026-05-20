@@ -124,15 +124,19 @@ def compute_kpis(df: pd.DataFrame) -> ExecutiveKPIs:
     )
 
 
-def generate_executive_insights(df: pd.DataFrame, kpis: ExecutiveKPIs) -> list[str]:
-    """Narrative bullets for C-suite readout."""
+def generate_executive_insights(
+    df: pd.DataFrame, kpis: ExecutiveKPIs
+) -> list[tuple[str, str]]:
+    """Narrative bullets for C-suite readout: (headline, body) pairs."""
     prepared = prepare_analytics_df(df) if "segment" not in df.columns else df
-    insights: list[str] = []
+    insights: list[tuple[str, str]] = []
 
     insights.append(
-        f"**Catalog footprint:** {kpis.catalog_size:,} top-rated titles indexed; "
-        f"median audience score **{kpis.median_rating:.2f}/10** with "
-        f"**{kpis.pct_premium:.0f}%** in the premium band (≥8.5)."
+        (
+            "Catalog footprint",
+            f"{kpis.catalog_size:,} top-rated titles indexed; median audience score "
+            f"{kpis.median_rating:.2f}/10 with {kpis.pct_premium:.0f}% in the premium band (≥8.5).",
+        )
     )
 
     if kpis.rating_trend_recent is not None:
@@ -140,46 +144,71 @@ def generate_executive_insights(df: pd.DataFrame, kpis: ExecutiveKPIs) -> list[s
             "softening" if kpis.rating_trend_recent < -0.05 else "stable"
         )
         insights.append(
-            f"**Quality trajectory:** Post-2015 launches average "
-            f"**{kpis.rating_trend_recent:+.2f}** pts vs earlier cohorts — sentiment is **{direction}**."
+            (
+                "Quality trajectory",
+                f"Post-2015 launches average {kpis.rating_trend_recent:+.2f} pts vs earlier "
+                f"cohorts — sentiment is {direction}.",
+            )
         )
 
     insights.append(
-        f"**Portfolio mix:** **{kpis.stars_count}** scale winners (high buzz + high quality), "
-        f"**{kpis.hidden_gems_count}** hidden gems (acquisition targets), "
-        f"**{kpis.risk_count}** underperformers for slate review."
+        (
+            "Portfolio mix",
+            f"{kpis.stars_count} scale winners (high buzz + high quality), "
+            f"{kpis.hidden_gems_count} hidden gems (acquisition targets), "
+            f"{kpis.risk_count} underperformers for slate review.",
+        )
     )
 
     top_star = prepared[prepared["segment"] == SEGMENT_STARS].head(3)["name"].tolist()
     if top_star:
         insights.append(
-            f"**Benchmark titles:** {', '.join(top_star)} lead the star quadrant — "
-            "use as comps for greenlight ROI modeling."
+            (
+                "Benchmark titles",
+                f"{', '.join(top_star)} lead the star quadrant — "
+                "use as comps for greenlight ROI modeling.",
+            )
         )
 
     gems = prepared[prepared["segment"] == SEGMENT_CULT].nlargest(3, "vote_average")
     if len(gems):
         insights.append(
-            f"**Undervalued IP:** {', '.join(gems['name'].tolist())} — strong scores, "
-            "below-median buzz; suited for catalog fill or localized marketing pushes."
+            (
+                "Undervalued IP",
+                f"{', '.join(gems['name'].tolist())} — strong scores, below-median buzz; "
+                "suited for catalog fill or localized marketing pushes.",
+            )
         )
 
     mass = prepared[prepared["segment"] == SEGMENT_MASS].nlargest(2, "popularity")
     if len(mass):
         insights.append(
-            f"**Reach without full quality match:** {', '.join(mass['name'].tolist())} — "
-            "high awareness; monitor retention and sequel economics."
+            (
+                "Reach vs quality gap",
+                f"{', '.join(mass['name'].tolist())} — high awareness; "
+                "monitor retention and sequel economics.",
+            )
         )
 
     insights.append(
-        f"**Content concentration:** **{kpis.dominant_theme}** shows the highest mean rating; "
-        f"**{kpis.top_decade}** cohort leads by decade."
+        (
+            "Content concentration",
+            f"{kpis.dominant_theme} shows the highest mean rating; "
+            f"{kpis.top_decade} cohort leads by decade.",
+        )
     )
 
-    total_votes_m = kpis.total_audience_votes / 1_000_000
+    votes_label = (
+        f"{kpis.total_audience_votes / 1_000_000:.1f}M"
+        if kpis.total_audience_votes >= 1_000_000
+        else f"{kpis.total_audience_votes:,}"
+    )
     insights.append(
-        f"**Audience signal volume:** **{total_votes_m:.1f}M** cumulative TMDB votes — "
-        "proxy for global engagement depth (not Netflix proprietary viewership)."
+        (
+            "Audience signal volume",
+            f"{votes_label} cumulative TMDB votes — proxy for global engagement depth "
+            "(not proprietary platform viewership).",
+        )
     )
 
     return insights

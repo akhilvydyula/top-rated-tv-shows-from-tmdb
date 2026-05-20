@@ -7,8 +7,8 @@ services:
     name: tmdb-tv-shows
     runtime: python
     plan: free
-    buildCommand: make install
-    startCommand: make start
+    buildCommand: pip install -r requirements.txt
+    startCommand: bash scripts/render-start.sh
     healthCheckPath: /
     envVars:
       - key: PYTHON_VERSION

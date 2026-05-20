@@ -28,7 +28,7 @@ def test_kpis_and_insights() -> None:
     assert kpis.catalog_size == len(df)
     insights = generate_executive_insights(df, kpis)
     assert len(insights) >= 4
-    assert any("Catalog footprint" in i for i in insights)
+    assert any(h == "Catalog footprint" for h, _ in insights)
 
 
 def test_opportunities_prefers_cult_segment() -> None:

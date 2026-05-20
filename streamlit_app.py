@@ -40,9 +40,15 @@ EXEC_CSS = """
         padding: 1rem 1.25rem;
         border-radius: 8px;
         margin: 0.5rem 0;
-        color: #f3f4f6;
+        color: #e5e7eb;
         font-size: 0.95rem;
-        line-height: 1.5;
+        line-height: 1.55;
+    }
+    .exec-insight strong {
+        color: #ffffff;
+        display: block;
+        font-size: 1rem;
+        margin-bottom: 0.35rem;
     }
     .disclaimer { font-size: 0.8rem; color: #9ca3af; }
     div[data-testid="stMetricValue"] { font-size: 1.75rem; }
@@ -110,9 +116,22 @@ def _quadrant_scatter(df: pd.DataFrame) -> go.Figure:
     return fig
 
 
-def page_executive_brief(df: pd.DataFrame, kpis) -> None:
+def _render_insight(headline: str, body: str) -> None:
+    st.markdown(
+        f'<div class="exec-insight"><strong>{headline}</strong>{body}</div>',
+        unsafe_allow_html=True,
+    )
+
+
+def page_executive_brief(df: pd.DataFrame, kpis, *, using_sample: bool) -> None:
     st.markdown('<p class="exec-header">CONFIDENTIAL · MARKET INTELLIGENCE BRIEF</p>', unsafe_allow_html=True)
     st.subheader("Executive summary")
+
+    if using_sample:
+        st.warning(
+            "**Demo brief (95 titles)** — Upload the full Kaggle CSV in the sidebar for a "
+            "production-scale board readout (typically thousands of titles)."
+        )
 
     c1, c2, c3, c4, c5 = st.columns(5)
     c1.metric("Catalog titles", f"{kpis.catalog_size:,}")
@@ -122,14 +141,11 @@ def page_executive_brief(df: pd.DataFrame, kpis) -> None:
     c5.metric("Hidden gems", kpis.hidden_gems_count)
 
     st.markdown("#### Strategic takeaways")
-    for bullet in generate_executive_insights(df, kpis):
-        st.markdown(
-            f'<div class="exec-insight">{bullet}</div>',
-            unsafe_allow_html=True,
-        )
+    for headline, body in generate_executive_insights(df, kpis):
+        _render_insight(headline, body)
 
     st.markdown(
-        '<p class="disclaimer">TMDB public ratings are a market-sentiment proxy — not Netflix '
+        '<p class="disclaimer">TMDB public ratings are a market-sentiment proxy — not '
         "proprietary viewership, churn, or revenue. Use for competitive benchmarking and "
         "greenlight sensitivity analysis.</p>",
         unsafe_allow_html=True,
@@ -414,13 +430,22 @@ def main() -> None:
     with st.sidebar:
         st.header("Executive control panel")
         uploaded = st.file_uploader("Upload full Kaggle CSV", type=["csv"])
+        using_sample = uploaded is None
         if uploaded is not None:
             raw = pd.read_csv(uploaded)
             df = prepare_analytics_df(raw)
-            st.caption("Uploaded catalog")
+            st.success(f"Production catalog · {len(df):,} titles")
         else:
             df = load_shows(str(DEFAULT_DATA))
-            st.caption("Sample catalog (upload full data for production brief)")
+            st.info("Demo mode · 95-title sample")
+
+        with st.expander("How to load full Kaggle data"):
+            st.markdown(
+                "1. Download from "
+                "[Kaggle](https://www.kaggle.com/datasets/rosemeenshaikh/op-rated-tv-shows-from-tmdb)\n"
+                "2. Upload the `.csv` above (up to 200 MB)\n"
+                "3. All tabs refresh with the full catalog"
+            )
 
         kpis = compute_kpis(df)
         st.divider()
@@ -446,7 +471,7 @@ def main() -> None:
         ]
     )
     with tabs[0]:
-        page_executive_brief(df, kpis)
+        page_executive_brief(df, kpis, using_sample=using_sample)
     with tabs[1]:
         page_market_landscape(df)
     with tabs[2]:
