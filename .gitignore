@@ -10,6 +10,7 @@ dist/
 build/
 .env
 Makefile.local
+.make/
 .idea/
 .vscode/
 *.log

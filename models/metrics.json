@@ -1,6 +1,11 @@
 {
-  "mae": 0.468403689679786,
-  "r2": -0.002779536508850544,
+  "task": "classification",
+  "accuracy": 0.47368421052631576,
+  "f1_macro": 0.2222222222222222,
+  "pct_within_1_star": 0.9473684210526315,
+  "pct_within_2_stars": 1.0,
   "n_train": 76,
-  "n_test": 19
+  "n_test": 19,
+  "label_scheme": "exact",
+  "text_features": true
 }

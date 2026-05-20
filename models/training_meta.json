@@ -1,0 +1,17 @@
+{
+  "label_scheme": "exact",
+  "task": "classification",
+  "text_features": true,
+  "class_to_mean_vote": {
+    "6": 6.0,
+    "7": 7.042857142857143,
+    "8": 8.124444444444444,
+    "9": 8.785714285714286
+  },
+  "classes": [
+    6,
+    7,
+    8,
+    9
+  ]
+}
