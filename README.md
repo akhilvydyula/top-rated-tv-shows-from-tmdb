@@ -1,5 +1,12 @@
 # TMDB top-rated TV shows — Streamlit dashboard
 
+[![License: MIT](https://img.shields.io/github/license/akhilvydyula/top-rated-tv-shows-from-tmdb)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-3776AB?logo=python&logoColor=white)](https://www.python.org/downloads/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![GitHub stars](https://img.shields.io/github/stars/akhilvydyula/top-rated-tv-shows-from-tmdb?style=social)](https://github.com/akhilvydyula/top-rated-tv-shows-from-tmdb/stargazers)
+[![Open Source](https://img.shields.io/badge/open%20source-welcome-brightgreen)](#open-source)
+
 Interactive app to explore [Top rated TV shows from TMDB (Kaggle)](https://www.kaggle.com/datasets/rosemeenshaikh/op-rated-tv-shows-from-tmdb) and predict `vote_average` with a scikit-learn pipeline.
 
 ## Makefile commands
@@ -104,6 +111,19 @@ make train DATA=path/to/kaggle.csv
 | `data/sample_tv_shows.csv` | Demo dataset |
 | `models/` | Trained pipeline and metrics |
 
+## Open source
+
+This repository is **open source** under the [MIT License](LICENSE). Stars, issues, and pull requests are welcome — they help others discover the project and improve it for the community.
+
+### How you can help
+
+- **Star** the repo if you find it useful — it helps visibility on GitHub Explore and search.
+- **Open an issue** for bugs, ideas, or questions.
+- **Submit a pull request** with a focused change and a clear description.
+- **Share** the project with anyone learning Streamlit dashboards or regression pipelines.
+
+Maintained by [Akhil Vydyula](https://github.com/akhilvydyula) as part of the Skills Marathon ML portfolio.
+
 ## License
 
-Follow the Kaggle dataset license; code is provided as-is for learning and prototyping.
+Application code is released under the [MIT License](LICENSE). Follow the [Kaggle dataset license](https://www.kaggle.com/datasets/rosemeenshaikh/op-rated-tv-shows-from-tmdb) for the underlying data.
