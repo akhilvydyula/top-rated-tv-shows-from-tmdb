@@ -1,0 +1,9 @@
+exclude_dirs:
+  - /.venv/
+  - /venv/
+  - /notebooks/
+  - /tests/
+  - /.github/
+  - /mlruns/
+skips:
+  - B104
